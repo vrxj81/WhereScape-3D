@@ -286,6 +286,17 @@
               <rule_attribute name="no-column-type">F</rule_attribute>
             </rule>
           </rule>
+          <rule name="Add Snapshot data transformation (SQL Server)" type="add-data-transformation" rdbms="SQL Server" enabled="true" snapshot="false">
+            <rule_attribute name="data-transformation-name">PIT Snapshot date (SQL Server)</rule_attribute>
+            <rule_attribute name="data-transformation-interpret-script">F</rule_attribute>
+            <rule_attribute name="data-transformation-change">getdate()</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">PIT snapshot date</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
           <rule name="Order PIT columns" type="reorder-columns" enabled="true" snapshot="false">
             <rule type="match-on">
               <rule_attribute name="table-type">PIT</rule_attribute>
@@ -307,6 +318,35 @@
             <rule type="reorder-columns-order">
               <rule_attribute name="type-of-column">OTHER</rule_attribute>
               <rule_attribute name="column-type"></rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Add PIT query" type="assign-query-template" enabled="true" snapshot="false">
+            <rule_attribute name="query-type">data</rule_attribute>
+            <rule_attribute name="query-template">jv_query_pit</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Generate PIT query" type="populate-table-queries" enabled="true" snapshot="false">
+            <rule_attribute name="query-action">populate query</rule_attribute>
+            <rule_attribute name="query-template">jv_query_pit</rule_attribute>
+            <rule_attribute name="query-override-template">T</rule_attribute>
+            <rule_attribute name="duplicate-query">Ignore</rule_attribute>
+            <rule_attribute name="encapsulate-query-alias-left">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-alias-right">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-schema-left">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-schema-right">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-table-left">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-table-right">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-column-left">"</rule_attribute>
+            <rule_attribute name="encapsulate-query-column-right">"</rule_attribute>
+            <rule_attribute name="copy-query-where-clause">F</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
             </rule>
           </rule>
         </rules>
