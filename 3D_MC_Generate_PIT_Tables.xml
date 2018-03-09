@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<source_system xmlns="http://www.wherescape.com/xml/3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wherescape.com/xml/3D ./source_system_34.xsd">
+  <xml_version>34</xml_version>
+  <structure>
+    <tables />
+    <relations />
+    <transformations>
+      <transformation name="Generate PIT tables">
+        <rules>
+          <rule name="Collapse sources" type="collapse-source-mappings" enabled="true" snapshot="false">
+            <rule_attribute name="resolution">CollapseN</rule_attribute>
+            <rule_attribute name="depth">1</rule_attribute>
+            <rule_attribute name="keep-lineage">F</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Hub</rule_attribute>
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Label hubs and satellites" type="rename-table" enabled="true" snapshot="false">
+            <rule_attribute name="rename-table-using">Entity name</rule_attribute>
+            <rule_attribute name="rename-table">{%- set rename = table.name -%}
+{%- for tableType in table.entityTypes -%}
+    {%- from table.entityTypes as type where type.tablePrefix is defined and startsWithIgnoreCase(rename, type.tablePrefix) -%}
+        {%- set rename = replaceStart(rename, type.tablePrefix, "", false) -%}
+    {%- endfrom -%}
+    {%- from table.entityTypes as type where type.tableSuffix is defined and endsWithIgnoreCase(rename, type.tableSuffix) -%}
+        {%- set rename = replaceEnd(rename, type.tableSuffix, "", false) -%}
+    {%- endfrom -%}
+{%- endfor -%}
+{{- rename -}}</rule_attribute>
+            <rule_attribute name="apply-on">Entity label</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Hub</rule_attribute>
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Label hub hash keys" type="rename-column" enabled="true" snapshot="false">
+            <rule_attribute name="rename-column-using">Attribute name</rule_attribute>
+            <rule_attribute name="rename-column">{{ column.name }}</rule_attribute>
+            <rule_attribute name="apply-on">Attribute label</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Hub</rule_attribute>
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">Hub hash key</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Rename satellite hub hash keys for PIT" type="rename-column" enabled="true" snapshot="false">
+            <rule_attribute name="rename-column-using">Attribute name</rule_attribute>
+            <rule_attribute name="rename-column">{{ column.name }}_{{ table.label}}</rule_attribute>
+            <rule_attribute name="apply-on">Attribute</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">Hub hash key</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Copy hubs and satellites" type="copy-tables" enabled="true" snapshot="false">
+            <rule_attribute name="rename-table">{%- set rename = table.name -%}
+{%- for tableType in table.entityTypes -%}
+    {%- from table.entityTypes as type where type.tablePrefix is defined and startsWithIgnoreCase(rename, type.tablePrefix) -%}
+       {%- if type.name == 'Hub' -%}
+        {%- set rename = replaceStart(rename, type.tablePrefix, "", false) -%}
+       {%- else -%}
+        {%- set rename = replaceStart(rename, type.tablePrefix, "", false) + type.tablePrefix -%}
+      {%- endif -%}
+    {%- endfrom -%}
+{%- endfor -%}
+{{- rename -}}</rule_attribute>
+            <rule_attribute name="remove-pk-attributes">F</rule_attribute>
+            <rule_attribute name="remove-generated-attributes">F</rule_attribute>
+            <rule_attribute name="remove-table-types">T</rule_attribute>
+            <rule_attribute name="redirect-source-mappings">point to source</rule_attribute>
+            <rule_attribute name="remove-fk">T</rule_attribute>
+            <rule_attribute name="add-data-transformations">F</rule_attribute>
+            <rule_attribute name="add-table-type">Temp</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Hub</rule_attribute>
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Rename satellite hub hash keys to original" type="rename-column" enabled="true" snapshot="false">
+            <rule_attribute name="rename-column-using">Label</rule_attribute>
+            <rule_attribute name="rename-column">{{ column.label }}</rule_attribute>
+            <rule_attribute name="apply-on">Attribute</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Satellite</rule_attribute>
+              <rule_attribute name="table-type">Satellite-History</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">Hub hash key</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Tag PIT columns" type="assign-column-type" enabled="true" snapshot="false">
+            <rule_attribute name="add-column-type">PIT column</rule_attribute>
+            <rule_attribute name="remove-matched-column-types">F</rule_attribute>
+            <rule_attribute name="remove-other-column-types">T</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-name">dss_start_date</rule_attribute>
+              <rule_attribute name="column-name-case-sensitive">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Rename PIT columns" type="rename-column" enabled="true" snapshot="false">
+            <rule_attribute name="rename-column-using">Attribute name</rule_attribute>
+            <rule_attribute name="rename-column">{{ column.name }}_{{ table.label }}</rule_attribute>
+            <rule_attribute name="apply-on">Attribute</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">PIT column</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Recreate relationships between temp hub and temp satellite" type="add-relationship" enabled="true" snapshot="false">
+            <rule_attribute name="attribute-equal-on">Attribute label</rule_attribute>
+            <rule_attribute name="allow-self-referencing">F</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+              <rule type="match-on-set-match" value="One of">
+                <rule_attribute name="column-type">Hub hash key</rule_attribute>
+                <rule_attribute name="column-property">PK</rule_attribute>
+                <rule_attribute name="column-property">Other</rule_attribute>
+              </rule>
+            </rule>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+              <rule type="match-on-set-match" value="One of">
+                <rule_attribute name="column-type">Hub hash key</rule_attribute>
+                <rule_attribute name="column-property">Generated</rule_attribute>
+                <rule_attribute name="column-property">NonGenerated</rule_attribute>
+                <rule_attribute name="column-property">Other</rule_attribute>
+              </rule>
+            </rule>
+            <rule type="targeter">
+              <rule_attribute name="matcher-style">None</rule_attribute>
+              <rule_attribute name="from-table-name-prefix-remove"></rule_attribute>
+              <rule_attribute name="from-table-name-suffix-remove"></rule_attribute>
+              <rule_attribute name="from-table-name-prefix-add"></rule_attribute>
+              <rule_attribute name="from-table-name-suffix-add"></rule_attribute>
+              <rule_attribute name="table-name-prefix-remove"></rule_attribute>
+              <rule_attribute name="table-name-suffix-remove"></rule_attribute>
+              <rule_attribute name="table-name-prefix-add"></rule_attribute>
+              <rule_attribute name="table-name-suffix-add"></rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Merge PIT hubs and their satellites" type="merge-table" enabled="true" snapshot="false">
+            <rule_attribute name="merge-to">To PK</rule_attribute>
+            <rule_attribute name="duplicate-column">Ignore</rule_attribute>
+            <rule_attribute name="remove-merge-column">F</rule_attribute>
+            <rule_attribute name="copy-to-multi">F</rule_attribute>
+            <rule_attribute name="rename-table">{{ pkTable.name }}</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+            <rule type="match-on">
+              <rule_attribute name="no-relationship-type">T</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Assign PIT type" type="assign-table-type" enabled="true" snapshot="false">
+            <rule_attribute name="rename-table">{%- set rename = table.name -%}
+{%- for tableType in table.entityTypes -%}
+    {%- from table.entityTypes as type where type.tablePrefix is defined and startsWithIgnoreCase(rename, type.tablePrefix) -%}
+        {%- set rename = replaceStart(rename, type.tablePrefix, "", false) -%}
+    {%- endfrom -%}
+    {%- from table.entityTypes as type where type.tableSuffix is defined and endsWithIgnoreCase(rename, type.tableSuffix) -%}
+        {%- set rename = replaceEnd(rename, type.tableSuffix, "", false) -%}
+    {%- endfrom -%}
+{%- endfor -%}
+{{- rename -}}</rule_attribute>
+            <rule_attribute name="remove-other-table-types">T</rule_attribute>
+            <rule_attribute name="add-table-type">PIT</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">Temp</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Remove non-PIT columns" type="delete-column" enabled="true" snapshot="false">
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-name">%</rule_attribute>
+              <rule_attribute name="column-name-case-sensitive">F</rule_attribute>
+              <rule type="match-on-set-match" value="One of">
+                <rule_attribute name="column-type">Business key</rule_attribute>
+                <rule_attribute name="column-type">Change hash key</rule_attribute>
+                <rule_attribute name="column-type">HVA</rule_attribute>
+                <rule_attribute name="column-type">LVA</rule_attribute>
+                <rule_attribute name="column-type">MVA</rule_attribute>
+                <rule_attribute name="column-property">Generated</rule_attribute>
+                <rule_attribute name="column-property">NonGenerated</rule_attribute>
+                <rule_attribute name="column-property">Other</rule_attribute>
+              </rule>
+              <rule type="match-on-set-match" value="One of">
+                <rule_attribute name="no-column-type">T</rule_attribute>
+                <rule_attribute name="column-property">Generated</rule_attribute>
+                <rule_attribute name="column-property">NonGenerated</rule_attribute>
+                <rule_attribute name="column-property">Other</rule_attribute>
+              </rule>
+            </rule>
+          </rule>
+          <rule name="Assign PIT column to Satellite hash keys" type="assign-column-type" enabled="true" snapshot="false">
+            <rule_attribute name="add-column-type">PIT column</rule_attribute>
+            <rule_attribute name="remove-matched-column-types">T</rule_attribute>
+            <rule_attribute name="remove-other-column-types">T</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-name">%</rule_attribute>
+              <rule_attribute name="column-name-case-sensitive">F</rule_attribute>
+              <rule type="match-on-group-match" value="column">
+                <rule_attribute name="group-operator">And</rule_attribute>
+                <rule_attribute name="subset-operator">One of</rule_attribute>
+                <rule_attribute name="column-property">FK</rule_attribute>
+                <rule_attribute name="column-type">Hub hash key</rule_attribute>
+                <rule_attribute name="no-column-type">F</rule_attribute>
+              </rule>
+            </rule>
+          </rule>
+          <rule name="Remove PIT relationships" type="delete-relationship" enabled="true" snapshot="false">
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+            <rule type="match-on">
+              <rule_attribute name="no-relationship-type">T</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Make PIT snapshot date part of the PK" type="set-data-type" enabled="true" snapshot="false">
+            <rule_attribute name="active-old-data-type">F</rule_attribute>
+            <rule_attribute name="active-old-size">F</rule_attribute>
+            <rule_attribute name="active-old-scale">F</rule_attribute>
+            <rule_attribute name="active-old-default-value">F</rule_attribute>
+            <rule_attribute name="active-old-charset">F</rule_attribute>
+            <rule_attribute name="active-old-pk">F</rule_attribute>
+            <rule_attribute name="active-old-auto-inc">F</rule_attribute>
+            <rule_attribute name="active-old-unique">F</rule_attribute>
+            <rule_attribute name="active-old-nullable">F</rule_attribute>
+            <rule_attribute name="active-old-fk">F</rule_attribute>
+            <rule_attribute name="active-new-data-type">F</rule_attribute>
+            <rule_attribute name="active-new-size">F</rule_attribute>
+            <rule_attribute name="active-new-scale">F</rule_attribute>
+            <rule_attribute name="active-new-default-value">F</rule_attribute>
+            <rule_attribute name="active-new-charset">F</rule_attribute>
+            <rule_attribute name="active-new-pk">T</rule_attribute>
+            <rule_attribute name="new-pk">T</rule_attribute>
+            <rule_attribute name="active-new-auto-inc">F</rule_attribute>
+            <rule_attribute name="active-new-unique">F</rule_attribute>
+            <rule_attribute name="active-new-nullable">F</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-type">PIT snapshot date</rule_attribute>
+              <rule_attribute name="no-column-type">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Order PIT columns" type="reorder-columns" enabled="true" snapshot="false">
+            <rule type="match-on">
+              <rule_attribute name="table-type">PIT</rule_attribute>
+              <rule_attribute name="no-table-type">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+            <rule type="reorder-columns-order">
+              <rule_attribute name="type-of-column">PK</rule_attribute>
+              <rule_attribute name="column-type"></rule_attribute>
+            </rule>
+            <rule type="reorder-columns-order">
+              <rule_attribute name="type-of-column">GENERATED</rule_attribute>
+              <rule_attribute name="column-type"></rule_attribute>
+            </rule>
+            <rule type="reorder-columns-order">
+              <rule_attribute name="type-of-column">FK</rule_attribute>
+              <rule_attribute name="column-type"></rule_attribute>
+            </rule>
+            <rule type="reorder-columns-order">
+              <rule_attribute name="type-of-column">OTHER</rule_attribute>
+              <rule_attribute name="column-type"></rule_attribute>
+            </rule>
+          </rule>
+        </rules>
+      </transformation>
+    </transformations>
+  </structure>
+</source_system>
+
