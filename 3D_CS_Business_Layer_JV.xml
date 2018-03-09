@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns="http://www.wherescape.com/xml/3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wherescape.com/xml/3D ./preference_defn_22.xsd">
+  <xml_version>22</xml_version>
+  <model>
+    <preference name="category-icon">model_logical.png</preference>
+    <category name="Business Layer">
+      <preference name="model_type">Logical</preference>
+      <preference name="category-icon">model_logical.png</preference>
+      <preference name="object-icon">model_logical.png</preference>
+      <preference name="version-icon">model_logical.png</preference>
+      <preference name="group-icon">table_group.png</preference>
+      <preference name="schema-icon">db_schema.png</preference>
+      <preference name="table-icon">table.png</preference>
+      <preference name="column-icon">db_column.png</preference>
+      <preference name="column-type-icon">type.png</preference>
+      <preference name="version" />
+      <preference name="version-multiple_version" parent="version">true</preference>
+      <preference name="version-prototyping" parent="version">false</preference>
+      <preference name="connection" />
+      <preference name="connection-connection_object" parent="connection">false</preference>
+      <preference name="connection-xml" parent="connection">false</preference>
+      <preference name="connection-rdbms" parent="connection">false</preference>
+      <preference name="connection-remote_profiling" parent="connection">false</preference>
+      <preference name="connection-schema_selection" parent="connection">false</preference>
+      <preference name="discovery" />
+      <preference name="discovery-automatic_model_conversion" parent="discovery">false</preference>
+      <preference name="discovery-automatic_model_conversion-model_conversion" parent="discovery-automatic_model_conversion" />
+      <preference name="discovery-quick" parent="discovery" />
+      <preference name="discovery-quick-tables_and_relations" parent="discovery-quick">true</preference>
+      <preference name="discovery-quick-columns" parent="discovery-quick">true</preference>
+      <preference name="discovery-quick-pks_and_indexes" parent="discovery-quick">false</preference>
+      <preference name="discovery-quick-comments" parent="discovery-quick">false</preference>
+      <preference name="profiling" />
+      <preference name="profiling-quick" parent="profiling" />
+      <preference name="profiling-quick-profile_entity" parent="profiling-quick">true</preference>
+      <preference name="profiling-quick-profile_attribute" parent="profiling-quick">true</preference>
+      <preference name="profiling-quick-profile_relationship" parent="profiling-quick">false</preference>
+      <preference name="profiling-quick-rowcount_lower" parent="profiling-quick">0</preference>
+      <preference name="profiling-quick-rowcount_upper" parent="profiling-quick">0</preference>
+      <preference name="profiling-quick-unprofiled" parent="profiling-quick">true</preference>
+      <preference name="profiling-quick-profile_metrics" parent="profiling-quick">Distinct value count, Null %, Populated count</preference>
+      <preference name="entity" />
+      <preference name="entity-id" parent="entity">Entity</preference>
+      <preference name="entity-id-plural" parent="entity-id">Entities</preference>
+      <preference name="entity-case_conversion" parent="entity">0</preference>
+      <preference name="entity-informal_grouping" parent="entity">true</preference>
+      <preference name="entity-informal_grouping-id" parent="entity-informal_grouping">Group</preference>
+      <preference name="entity-informal_grouping-id-plural" parent="entity-informal_grouping-id">Groups</preference>
+      <preference name="entity-parent" parent="entity">true</preference>
+      <preference name="entity-parent-id" parent="entity-parent">Entity Group</preference>
+      <preference name="entity-parent-id-plural" parent="entity-parent-id">Entity Groups</preference>
+      <preference name="entity-parent-case_conversion" parent="entity-parent">0</preference>
+      <preference name="entity-parent-parent" parent="entity-parent">false</preference>
+      <preference name="entity-parent-parent-id" parent="entity-parent-parent" />
+      <preference name="entity-parent-parent-id-plural" parent="entity-parent-parent-id" />
+      <preference name="entity-parent-parent-case_conversion" parent="entity-parent-parent">0</preference>
+      <preference name="entity-hidden" parent="entity">true</preference>
+      <preference name="entity-label" parent="entity">true</preference>
+      <preference name="entity-label-id" parent="entity-label">Label</preference>
+      <preference name="entity-label-id-plural" parent="entity-label-id">Labels</preference>
+      <preference name="entity-comment" parent="entity">true</preference>
+      <preference name="entity-comment-id" parent="entity-comment">Comment</preference>
+      <preference name="entity-comment-id-plural" parent="entity-comment-id">Comments</preference>
+      <preference name="entity-data_transformations" parent="entity">true</preference>
+      <preference name="entity-ddl" parent="entity">false</preference>
+      <preference name="entity-business_rules" parent="entity">true</preference>
+      <preference name="entity-extended_properties" parent="entity">true</preference>
+      <preference name="entity-type" parent="entity">true</preference>
+      <preference name="entity-type-id" parent="entity-type">Entity Type</preference>
+      <preference name="entity-type-id-plural" parent="entity-type-id">Entity Types</preference>
+      <preference name="entity-type-restrict" parent="entity-type">false</preference>
+      <preference name="entity-type-limit" parent="entity-type">false</preference>
+      <preference name="entity-sampling" parent="entity" />
+      <preference name="entity-sampling-row_buckets" parent="entity-sampling">Default,100,500</preference>
+      <preference name="attribute" />
+      <preference name="attribute-support" parent="attribute">true</preference>
+      <preference name="attribute-id" parent="attribute">Attribute</preference>
+      <preference name="attribute-id-plural" parent="attribute-id">Attributes</preference>
+      <preference name="attribute-case_conversion" parent="attribute">0</preference>
+      <preference name="attribute-data_type" parent="attribute">true</preference>
+      <preference name="attribute-data_type-id" parent="attribute-data_type">Data Type</preference>
+      <preference name="attribute-data_type-id-plural" parent="attribute-data_type-id">Data Types</preference>
+      <preference name="attribute-data_type-length" parent="attribute-data_type">false</preference>
+      <preference name="attribute-data_type-length-size_id" parent="attribute-data_type-length">Size</preference>
+      <preference name="attribute-data_type-length-scale_id" parent="attribute-data_type-length">Scale</preference>
+      <preference name="attribute-charset" parent="attribute">false</preference>
+      <preference name="attribute-charset-id" parent="attribute-charset">Charset</preference>
+      <preference name="attribute-hidden" parent="attribute">true</preference>
+      <preference name="attribute-label" parent="attribute">true</preference>
+      <preference name="attribute-label-id" parent="attribute-label">Label</preference>
+      <preference name="attribute-label-id-plural" parent="attribute-label-id">Labels</preference>
+      <preference name="attribute-comment" parent="attribute">true</preference>
+      <preference name="attribute-comment-id" parent="attribute-comment">Comment</preference>
+      <preference name="attribute-comment-id-plural" parent="attribute-comment-id">Comments</preference>
+      <preference name="attribute-extended_properties" parent="attribute">true</preference>
+      <preference name="attribute-type" parent="attribute">true</preference>
+      <preference name="attribute-type-id" parent="attribute-type">Attribute Type</preference>
+      <preference name="attribute-type-id-plural" parent="attribute-type-id">Attribute Types</preference>
+      <preference name="attribute-type-restrict" parent="attribute-type">false</preference>
+      <preference name="attribute-type-limit" parent="attribute-type">false</preference>
+      <preference name="attribute-data_characteristics" parent="attribute" />
+      <preference name="attribute-data_characteristics-data_characteristics" parent="attribute-data_characteristics">false</preference>
+      <preference name="relationship" />
+      <preference name="relationship-support" parent="relationship">true</preference>
+      <preference name="relationship-id" parent="relationship">Relationship</preference>
+      <preference name="relationship-id-plural" parent="relationship-id">Relationships</preference>
+      <preference name="relationship-between" parent="relationship">0</preference>
+      <preference name="relationship-style" parent="relationship">0</preference>
+      <preference name="relationship-default-fk-shape" parent="relationship" />
+      <preference name="relationship-default-pk-shape" parent="relationship" />
+      <preference name="relationship-label" parent="relationship">true</preference>
+      <preference name="relationship-label-id" parent="relationship-label">Label</preference>
+      <preference name="relationship-label-id-plural" parent="relationship-label-id">Labels</preference>
+      <preference name="relationship-comment" parent="relationship">true</preference>
+      <preference name="relationship-comment-id" parent="relationship-comment">Comment</preference>
+      <preference name="relationship-comment-id-plural" parent="relationship-comment-id">Comments</preference>
+      <preference name="relationship-type" parent="relationship">true</preference>
+      <preference name="relationship-type-id" parent="relationship-type">Relationship Type</preference>
+      <preference name="relationship-type-id-plural" parent="relationship-type-id">Relationship Types</preference>
+      <preference name="relationship-type-restrict" parent="relationship-type">false</preference>
+      <preference name="relationship-type-limit" parent="relationship-type">false</preference>
+      <preference name="entity-subtype" parent="entity">true</preference>
+      <preference name="entity-subtype-id" parent="entity-subtype">Subtype</preference>
+      <preference name="entity-subtype-id-plural" parent="entity-subtype-id">Subtypes</preference>
+      <preference name="entity-subtype-foreign_keys" parent="entity-subtype">true</preference>
+      <preference name="entity-subtype-referenced" parent="entity-subtype">true</preference>
+      <preference name="entity-subtype-label" parent="entity-subtype">false</preference>
+      <preference name="entity-subtype-documentation" parent="entity-subtype">false</preference>
+      <preference name="constraint" />
+      <preference name="constraint-nullable" parent="constraint">true</preference>
+      <preference name="constraint-nullable-id" parent="constraint-nullable">Nullable</preference>
+      <preference name="constraint-unique" parent="constraint">true</preference>
+      <preference name="constraint-unique-id" parent="constraint-unique">Unique</preference>
+      <preference name="constraint-primary_key" parent="constraint">true</preference>
+      <preference name="constraint-primary_key-id" parent="constraint-primary_key">Primary key</preference>
+      <preference name="constraint-primary_key-id-plural" parent="constraint-primary_key-id">Primary keys</preference>
+      <preference name="constraint-default_value" parent="constraint">true</preference>
+      <preference name="constraint-default_value-id" parent="constraint-default_value">Default value</preference>
+      <preference name="index" />
+      <preference name="index-indexes" parent="index">true</preference>
+      <preference name="storage" />
+      <preference name="storage-storages" parent="storage">true</preference>
+      <preference name="storage-use_red_targets" parent="storage">false</preference>
+      <preference name="transition" />
+      <preference name="transition-automatic_model_conversion" parent="transition">false</preference>
+      <preference name="transition-automatic_model_conversion-model_conversion" parent="transition-automatic_model_conversion" />
+      <preference name="transition-manual_type_mapping" parent="transition">false</preference>
+      <preference name="source_mapping" />
+      <preference name="source_mapping-mapping" parent="source_mapping">true</preference>
+      <preference name="source_mapping-mapping-drag_n_drop" parent="source_mapping-mapping">true</preference>
+      <preference name="source_mapping-mapping-manual" parent="source_mapping-mapping">true</preference>
+      <preference name="source_mapping-mapping-manual-unreferenced" parent="source_mapping-mapping-manual">false</preference>
+      <preference name="source_mapping-mapping-multiple_sources" parent="source_mapping-mapping">true</preference>
+      <preference name="source_mapping-mapping-multiple_sources-priority" parent="source_mapping-mapping-multiple_sources">true</preference>
+      <preference name="creation" />
+      <preference name="creation_entity" parent="creation" />
+      <preference name="creation_entity-manual" parent="creation_entity">true</preference>
+      <preference name="creation_entity-drag_n_drop" parent="creation_entity">true</preference>
+      <preference name="creation_entity-always_show" parent="creation_entity">2</preference>
+      <preference name="creation_attribute" parent="creation" />
+      <preference name="creation_attribute-manual" parent="creation_attribute">true</preference>
+      <preference name="creation_attribute-drag_n_drop" parent="creation_attribute">true</preference>
+      <preference name="creation_attribute-always_show" parent="creation_attribute">0</preference>
+      <preference name="creation_relationship" parent="creation" />
+      <preference name="creation_relationship-manual" parent="creation_relationship">true</preference>
+      <preference name="creation_relationship-drag_n_drop" parent="creation_relationship">true</preference>
+      <preference name="creation_relationship-always_show" parent="creation_relationship">0</preference>
+      <preference name="creation_relationship-restrict" parent="creation_relationship">false</preference>
+      <preference name="creation_relationship-restrict-case_sensitive" parent="creation_relationship-restrict">false</preference>
+      <preference name="creation_index" parent="creation" />
+      <preference name="creation_index-manual" parent="creation_index">true</preference>
+      <preference name="creation_index-drag_n_drop" parent="creation_index">true</preference>
+      <preference name="diagram" />
+      <preference name="diagram-background" parent="diagram">0xe6f5f7</preference>
+      <preference name="diagram-selection" parent="diagram" />
+      <preference name="diagram-selection-colour" parent="diagram-selection">0xa99be</preference>
+      <preference name="diagram-selection-width" parent="diagram-selection">Normal</preference>
+      <preference name="diagram-header_clicking" parent="diagram">1</preference>
+      <preference name="diagram-link_connection" parent="diagram">1</preference>
+      <preference name="diagram_entity" />
+      <preference name="diagram_entity-icon_size" parent="diagram_entity">0</preference>
+      <preference name="diagram_entity-display_state" parent="diagram_entity">0</preference>
+      <preference name="diagram_entity-name_style" parent="diagram_entity">0</preference>
+      <preference name="diagram_entity-text_display" parent="diagram_entity">0</preference>
+      <preference name="diagram_entity-font" parent="diagram_entity">1</preference>
+      <preference name="diagram_entity-text_color" parent="diagram_entity">0x0</preference>
+      <preference name="diagram_entity-text_bold" parent="diagram_entity">true</preference>
+      <preference name="diagram_entity-text_italic" parent="diagram_entity">false</preference>
+      <preference name="diagram_entity-hidden" parent="diagram_entity">0</preference>
+      <preference name="diagram_entity-edge" parent="diagram_entity">true</preference>
+      <preference name="diagram_attribute" />
+      <preference name="diagram_attribute-header_color" parent="diagram_attribute">0xf6f3d9</preference>
+      <preference name="diagram_attribute-header_text_color" parent="diagram_attribute">0x666666</preference>
+      <preference name="diagram_attribute-header_row" parent="diagram_attribute">false</preference>
+      <preference name="diagram_attribute-display_state" parent="diagram_attribute">3</preference>
+      <preference name="diagram_attribute-fields_displayed" parent="diagram_attribute">primary_key; column_name; data_type_full; source_table; column_types</preference>
+      <preference name="diagram_attribute-text_display" parent="diagram_attribute">0</preference>
+      <preference name="diagram_attribute-pk_coloured" parent="diagram_attribute">false</preference>
+      <preference name="diagram_attribute-font" parent="diagram_attribute">1</preference>
+      <preference name="diagram_attribute-text_color" parent="diagram_attribute">0x0</preference>
+      <preference name="diagram_attribute-text_bold" parent="diagram_attribute">false</preference>
+      <preference name="diagram_attribute-text_italic" parent="diagram_attribute">false</preference>
+      <preference name="diagram_attribute-hidden" parent="diagram_attribute">0</preference>
+      <preference name="diagram_relationship" />
+      <preference name="diagram_relationship-label" parent="diagram_relationship">true</preference>
+      <preference name="diagram_relationship-font" parent="diagram_relationship">1</preference>
+      <preference name="diagram_relationship-line_color" parent="diagram_relationship">0x0</preference>
+      <preference name="diagram_relationship-line_bold" parent="diagram_relationship">false</preference>
+      <preference name="diagram_relationship-hidden" parent="diagram_relationship">0</preference>
+      <preference name="diagram_relationship-path_route" parent="diagram_relationship">false</preference>
+      <preference name="diagram_relationship-end_update" parent="diagram_relationship">false</preference>
+      <preference name="diagram_relationship-subtype_follow_parent" parent="diagram_relationship">true</preference>
+      <preference name="diagram_note_category" />
+      <preference name="diagram_note_category-icon_size" parent="diagram_note_category">0</preference>
+      <preference name="diagram_note_category-display_state" parent="diagram_note_category">2</preference>
+      <preference name="diagram_note_category-entity_displayed" parent="diagram_note_category">Observation Note</preference>
+      <preference name="diagram_note_category-attribute_displayed" parent="diagram_note_category">Observation Note</preference>
+      <table_types>
+        <table_type>
+          <name>View</name>
+          <group>View</group>
+          <internal_name>VIEW</internal_name>
+          <description>A view entity</description>
+          <colour>255,255,255</colour>
+          <object_icon>view_table.png</object_icon>
+          <positioning_characteristic>TERMINAL</positioning_characteristic>
+        </table_type>
+        <table_type>
+          <name>Fact Source</name>
+          <internal_name>FACT SOURCE</internal_name>
+          <description>A fact table</description>
+          <colour>102,255,102</colour>
+          <positioning_characteristic>HUB</positioning_characteristic>
+        </table_type>
+        <table_type>
+          <name>Non Star Schema Table</name>
+          <internal_name>NON STAR SCHEMA TABLE</internal_name>
+          <description>Neither a Dimension nor a Fact</description>
+          <colour>255,255,153</colour>
+          <positioning_characteristic>TERMINAL</positioning_characteristic>
+        </table_type>
+      </table_types>
+      <column_types>
+        <column_type>
+          <name>LVA</name>
+          <description>Lowly volatile attribute</description>
+          <colour>51,153,102</colour>
+        </column_type>
+        <column_type>
+          <name>MVA</name>
+          <description>Medium volatile attribute</description>
+          <colour>0,255,0</colour>
+        </column_type>
+        <column_type>
+          <name>HVA</name>
+          <description>Highky volatile attribute</description>
+          <colour>204,255,204</colour>
+        </column_type>
+      </column_types>
+      <relationship_types>
+        <relationship_type>
+          <name>Duplicate data</name>
+          <description>Duplicate data</description>
+          <colour>51,102,255</colour>
+        </relationship_type>
+      </relationship_types>
+      <table_ratings>
+        <table_rating>
+          <name>Mandatory</name>
+          <colour>255,0,0</colour>
+        </table_rating>
+        <table_rating>
+          <name>Preferred</name>
+          <colour>255,102,0</colour>
+        </table_rating>
+        <table_rating>
+          <name>Optional</name>
+          <colour>0,255,0</colour>
+        </table_rating>
+      </table_ratings>
+      <column_ratings>
+        <column_rating>
+          <name>Mandatory</name>
+          <colour>255,0,0</colour>
+        </column_rating>
+        <column_rating>
+          <name>Preferred</name>
+          <colour>255,102,0</colour>
+        </column_rating>
+        <column_rating>
+          <name>Optional</name>
+          <colour>0,255,0</colour>
+        </column_rating>
+      </column_ratings>
+      <documentation>
+        <level name="Model">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+          </subjects>
+        </level>
+        <level name="Version">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+          </subjects>
+        </level>
+        <level name="Group">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+            <subject enabled="true">
+              <label>Description</label>
+              <name>Group description</name>
+            </subject>
+          </subjects>
+        </level>
+        <level name="Table">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+          </subjects>
+        </level>
+        <level name="Column">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+          </subjects>
+        </level>
+        <level name="Relation">
+          <subjects>
+            <subject enabled="true">
+              <label>General info</label>
+              <name>General information</name>
+            </subject>
+          </subjects>
+        </level>
+      </documentation>
+    </category>
+  </model>
+</preferences>
+
