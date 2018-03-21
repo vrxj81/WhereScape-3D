@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://www.wherescape.com/xml/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wherescape.com/xml/Template template_2.xsd">
+  <xml_version>2</xml_version>
+  <name>Rename table based on column label</name>
+  <type>transformation</type>
+  <metatags>
+    <metatag name="Version">1.0</metatag>
+  </metatags>
+  <content><![CDATA[{#- ======================================== -#}
+{#- Generate the transformation              -#}
+{#- ======================================== -#}
+{% for column in table.columns %}
+{% if column.attributeTypes contains "Business key" %}
+{{ column.label }}
+{% endif %}
+{% endfor %}
+]]></content>
+</template>
+
