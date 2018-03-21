@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://www.wherescape.com/xml/Template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wherescape.com/xml/Template template_2.xsd">
+  <xml_version>2</xml_version>
+  <name>jv_query_utility</name>
+  <type>other</type>
+  <metatags>
+    <metatag name="Version">1.0</metatag>
+  </metatags>
+  <content><![CDATA[{#- ======================================== -#}
+{#- Query common utilities                   -#}
+{#- ======================================== -#}
+
+
+{%- include "ws3d_common_utility" -%}
+{%- include "ws3d_query_utility" -%}
+
+{#-
+    queryTable :- A QueryTable, query table to join on
+    seenTables :- A list of QueryTable, previously seen query tables
+    seenJoins :- A list of QueryJoin, previously seen query joins
+    openQuoteAlias :- A string, the value to replace the open quote for aliasing
+    closeQuoteAlias :- A string, the value to replace the close quote for aliasing
+    openQuoteColumn :- A string, the value to replace the open quote for columns
+    closeQuoteColumn :- A string, the value to replace the close quote for columns
+    caseStyle :- A string, expected as "upper" for upper case and "lower" for lower case
+-#}
+{%- macro addPITQueryJoins(queryTable, seenTables = [], seenJoins = [], openQuoteAlias = "", closeQuoteAlias = "", openQuoteColumn = "", closeQuoteColumn = "", caseStyle = "actual") -%}
+    {%- for queryJoin in queryTable.joins -%}
+        {%- if not seenJoins contains queryJoin -%}
+            {%- if seenTables contains queryJoin.fktable and seenTables contains queryJoin.pktable -%}
+                {%- for column in queryJoin.relation.columns -%}
+                    {%- indent 0 -%}
+                    {%- if loop.first -%}
+                        ON {% else -%}
+                        AND {% endif -%}
+                    {{- printName(queryJoin.fktable.alias, openQuoteAlias, closeQuoteAlias, caseStyle) -}}.{{- printName(column.fst.name, openQuoteColumn, closeQuoteColumn) }} = {{ printName(queryJoin.pktable.alias, openQuoteAlias, closeQuoteAlias, caseStyle) -}}.{{- printName(column.snd.name, openQuoteColumn, closeQuoteColumn) -}}{%- br -%}
+                   {#- Add PIT specific join logic -#}
+                  {%- from queryJoin.fktable.table.columns as pitcolumn where pitcolumn.name contains "dss_start" -%}
+                    {%- indent 0 -%}
+                    AND {{ printName(queryJoin.fktable.alias, openQuoteAlias, closeQuoteAlias, caseStyle) -}}.{{- printName(pitcolumn.name, openQuoteColumn, closeQuoteColumn) }} = {%- br -%}
+                    ( SELECT MAX(z.{{- printName(pitcolumn.name, openQuoteColumn, closeQuoteColumn) }}) FROM {{ printName(queryJoin.fktable.alias, openQuoteAlias, closeQuoteAlias, caseStyle) -}} z{%- br -%}
+                    {%- indent 1 -%}WHERE z.{{- printName(column.fst.name, openQuoteColumn, closeQuoteColumn) }} = {{ printName(queryJoin.pktable.alias, openQuoteAlias, closeQuoteAlias, caseStyle) -}}.{{- printName(column.snd.name, openQuoteColumn, closeQuoteColumn) -}}{%- br -%}
+                    {%- indent 1 -%}AND z.{{- printName(pitcolumn.name, openQuoteColumn, closeQuoteColumn) }} <= getdate() {%- br -%}
+                    {%- indent 0 -%}){%- br -%}
+                  {%- endfrom -%}
+                {%- endfor -%}
+                {%- list seenJoins add queryJoin -%}
+            {%- endif -%}
+        {%- endif %}
+    {%- endfor -%}
+{%- endmacro -%}
+]]></content>
+</template>
+
