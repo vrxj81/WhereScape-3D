@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<source_system xmlns="http://www.wherescape.com/xml/3D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wherescape.com/xml/3D ./source_system_34.xsd">
+  <xml_version>34</xml_version>
+  <structure>
+    <tables />
+    <relations />
+    <transformations>
+      <transformation name="Rename_flagged_reserved_words">
+        <rules>
+          <rule name="Resolve_### tags_entities" type="rename-table" enabled="true" snapshot="false">
+            <rule_attribute name="rename-table-using">Entity name</rule_attribute>
+            <rule_attribute name="rename-table">{%- set rename = table.name -%}
+{%- set rename = replaceEnd(rename, "###", "_afb", false) -%}
+{{- rename -}}</rule_attribute>
+            <rule_attribute name="apply-on">Entity</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-name">%###</rule_attribute>
+              <rule_attribute name="table-name-case-sensitive">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="Resolve_###_tags_attributes" type="rename-column" enabled="true" snapshot="false">
+            <rule_attribute name="rename-column-using">Attribute name</rule_attribute>
+            <rule_attribute name="rename-column">{%- set rename = column.name -%}
+{%- set rename = replaceEnd(rename, "###", "_1", false) -%}
+{{- rename -}}</rule_attribute>
+            <rule_attribute name="apply-on">Attribute</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="column-name">%###</rule_attribute>
+              <rule_attribute name="column-name-case-sensitive">F</rule_attribute>
+            </rule>
+          </rule>
+          <rule name="All_lower_case" type="convert-case" enabled="true" snapshot="false">
+            <rule_attribute name="casing-to">LOWER</rule_attribute>
+            <rule_attribute name="databases">T</rule_attribute>
+            <rule_attribute name="schemas">T</rule_attribute>
+            <rule_attribute name="tables">T</rule_attribute>
+            <rule_attribute name="columns">T</rule_attribute>
+            <rule type="match-on">
+              <rule_attribute name="table-name">%</rule_attribute>
+              <rule_attribute name="table-name-case-sensitive">F</rule_attribute>
+              <rule_attribute name="column-property">Include all entities</rule_attribute>
+            </rule>
+          </rule>
+        </rules>
+      </transformation>
+    </transformations>
+  </structure>
+</source_system>
+
